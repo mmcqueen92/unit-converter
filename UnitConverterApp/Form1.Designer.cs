@@ -28,100 +28,103 @@
         /// </summary>
         private void InitializeComponent()
         {
-            convertButton = new Button();
-            fromUnitSelect = new ComboBox();
-            convertLabel = new Label();
-            toLabel = new Label();
-            initialValue = new TextBox();
-            toUnitSelect = new ComboBox();
-            resultLabel = new Label();
-            result = new TextBox();
+            ConvertButton = new Button();
+            FromUnitSelect = new ComboBox();
+            ConvertLabel = new Label();
+            ToLabel = new Label();
+            InitialValue = new TextBox();
+            ToUnitSelect = new ComboBox();
+            ResultLabel = new Label();
+            ResultBox = new TextBox();
             SuspendLayout();
             // 
-            // convertButton
+            // ConvertButton
             // 
-            convertButton.Location = new Point(53, 154);
-            convertButton.Name = "convertButton";
-            convertButton.Size = new Size(75, 23);
-            convertButton.TabIndex = 0;
-            convertButton.Text = "Convert";
-            convertButton.UseVisualStyleBackColor = true;
-            convertButton.Click += button1_Click;
+            ConvertButton.Location = new Point(53, 154);
+            ConvertButton.Name = "ConvertButton";
+            ConvertButton.Size = new Size(75, 23);
+            ConvertButton.TabIndex = 0;
+            ConvertButton.Text = "Convert";
+            ConvertButton.UseVisualStyleBackColor = true;
+            ConvertButton.Click += ConvertButton_Click;
             // 
-            // fromUnitSelect
+            // FromUnitSelect
             // 
-            fromUnitSelect.DisplayMember = "Miles";
-            fromUnitSelect.FormattingEnabled = true;
-            fromUnitSelect.Items.AddRange(new object[] { "Miles", "Kilometres", "Metres", "Yards" });
-            fromUnitSelect.Location = new Point(231, 74);
-            fromUnitSelect.Name = "fromUnitSelect";
-            fromUnitSelect.Size = new Size(121, 23);
-            fromUnitSelect.TabIndex = 1;
+            FromUnitSelect.DisplayMember = "Miles";
+            FromUnitSelect.FormattingEnabled = true;
+            FromUnitSelect.Items.AddRange(new object[] { "Miles", "Kilometres" });
+            FromUnitSelect.Location = new Point(231, 74);
+            FromUnitSelect.Name = "FromUnitSelect";
+            FromUnitSelect.Size = new Size(121, 23);
+            FromUnitSelect.TabIndex = 1;
             // 
-            // convertLabel
+            // ConvertLabel
             // 
-            convertLabel.AutoSize = true;
-            convertLabel.Location = new Point(53, 74);
-            convertLabel.Name = "convertLabel";
-            convertLabel.Size = new Size(52, 15);
-            convertLabel.TabIndex = 2;
-            convertLabel.Text = "Convert:";
-            convertLabel.Click += label1_Click;
+            ConvertLabel.AutoSize = true;
+            ConvertLabel.Location = new Point(53, 74);
+            ConvertLabel.Name = "ConvertLabel";
+            ConvertLabel.Size = new Size(52, 15);
+            ConvertLabel.TabIndex = 2;
+            ConvertLabel.Text = "Convert:";
+            ConvertLabel.Click += label1_Click;
             // 
-            // toLabel
+            // ToLabel
             // 
-            toLabel.AutoSize = true;
-            toLabel.Location = new Point(53, 116);
-            toLabel.Name = "toLabel";
-            toLabel.Size = new Size(22, 15);
-            toLabel.TabIndex = 3;
-            toLabel.Text = "To:";
+            ToLabel.AutoSize = true;
+            ToLabel.Location = new Point(53, 116);
+            ToLabel.Name = "ToLabel";
+            ToLabel.Size = new Size(22, 15);
+            ToLabel.TabIndex = 3;
+            ToLabel.Text = "To:";
             // 
-            // initialValue
+            // InitialValue
             // 
-            initialValue.Location = new Point(108, 74);
-            initialValue.Name = "initialValue";
-            initialValue.Size = new Size(100, 23);
-            initialValue.TabIndex = 4;
-            initialValue.TextChanged += initialValue_TextChanged;
+            InitialValue.Location = new Point(108, 74);
+            InitialValue.Name = "InitialValue";
+            InitialValue.Size = new Size(100, 23);
+            InitialValue.TabIndex = 4;
+            InitialValue.TextChanged += initialValue_TextChanged;
+            InitialValue.KeyPress += initialValue_KeyPress;
             // 
-            // toUnitSelect
+            // ToUnitSelect
             // 
-            toUnitSelect.FormattingEnabled = true;
-            toUnitSelect.Location = new Point(231, 116);
-            toUnitSelect.Name = "toUnitSelect";
-            toUnitSelect.Size = new Size(121, 23);
-            toUnitSelect.TabIndex = 5;
+            ToUnitSelect.FormattingEnabled = true;
+            ToUnitSelect.Items.AddRange(new object[] { "Miles", "Kilometres" });
+            ToUnitSelect.Location = new Point(231, 116);
+            ToUnitSelect.Name = "ToUnitSelect";
+            ToUnitSelect.Size = new Size(121, 23);
+            ToUnitSelect.TabIndex = 5;
             // 
-            // resultLabel
+            // ResultLabel
             // 
-            resultLabel.AutoSize = true;
-            resultLabel.Location = new Point(53, 204);
-            resultLabel.Name = "resultLabel";
-            resultLabel.Size = new Size(42, 15);
-            resultLabel.TabIndex = 6;
-            resultLabel.Text = "Result:";
+            ResultLabel.AutoSize = true;
+            ResultLabel.Location = new Point(53, 204);
+            ResultLabel.Name = "ResultLabel";
+            ResultLabel.Size = new Size(42, 15);
+            ResultLabel.TabIndex = 6;
+            ResultLabel.Text = "Result:";
             // 
-            // result
+            // ResultBox
             // 
-            result.Location = new Point(108, 204);
-            result.Name = "result";
-            result.Size = new Size(100, 23);
-            result.TabIndex = 7;
+            ResultBox.Location = new Point(108, 204);
+            ResultBox.Name = "ResultBox";
+            ResultBox.ReadOnly = true;
+            ResultBox.Size = new Size(100, 23);
+            ResultBox.TabIndex = 7;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(398, 324);
-            Controls.Add(result);
-            Controls.Add(resultLabel);
-            Controls.Add(toUnitSelect);
-            Controls.Add(initialValue);
-            Controls.Add(toLabel);
-            Controls.Add(convertLabel);
-            Controls.Add(fromUnitSelect);
-            Controls.Add(convertButton);
+            Controls.Add(ResultBox);
+            Controls.Add(ResultLabel);
+            Controls.Add(ToUnitSelect);
+            Controls.Add(InitialValue);
+            Controls.Add(ToLabel);
+            Controls.Add(ConvertLabel);
+            Controls.Add(FromUnitSelect);
+            Controls.Add(ConvertButton);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -130,13 +133,13 @@
 
         #endregion
 
-        private Button convertButton;
-        private ComboBox fromUnitSelect;
-        private Label convertLabel;
-        private Label toLabel;
-        private TextBox initialValue;
-        private ComboBox toUnitSelect;
-        private Label resultLabel;
-        private TextBox result;
+        private Button ConvertButton;
+        private ComboBox FromUnitSelect;
+        private Label ConvertLabel;
+        private Label ToLabel;
+        private TextBox InitialValue;
+        private ComboBox ToUnitSelect;
+        private Label ResultLabel;
+        private TextBox ResultBox;
     }
 }
