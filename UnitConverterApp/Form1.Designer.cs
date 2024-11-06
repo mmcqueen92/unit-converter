@@ -52,11 +52,12 @@
             // 
             FromUnitSelect.DisplayMember = "Miles";
             FromUnitSelect.FormattingEnabled = true;
-            FromUnitSelect.Items.AddRange(new object[] { "Miles", "Kilometres" });
+            FromUnitSelect.Items.AddRange(new object[] { "Miles", "Feet", "Yards", "Inches", "Kilometres", "Metres", "Centimetres", "Millimetres" });
             FromUnitSelect.Location = new Point(231, 74);
             FromUnitSelect.Name = "FromUnitSelect";
             FromUnitSelect.Size = new Size(121, 23);
             FromUnitSelect.TabIndex = 1;
+            FromUnitSelect.SelectedIndexChanged += FromUnitSelect_SelectedIndexChanged;
             // 
             // ConvertLabel
             // 
@@ -89,7 +90,7 @@
             // ToUnitSelect
             // 
             ToUnitSelect.FormattingEnabled = true;
-            ToUnitSelect.Items.AddRange(new object[] { "Miles", "Kilometres" });
+            ToUnitSelect.Items.AddRange(new object[] { "Miles", "Feet", "Yards", "Inches", "Kilometres", "Metres", "Centimetres", "Millimetres" });
             ToUnitSelect.Location = new Point(231, 116);
             ToUnitSelect.Name = "ToUnitSelect";
             ToUnitSelect.Size = new Size(121, 23);

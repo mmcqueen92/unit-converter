@@ -42,23 +42,32 @@ namespace UnitConverterApp
 
         private static double ConvertUnits(double value, string fromUnit, string toUnit)
         {
-            // Example conversion rates (using British spelling)
-            if (fromUnit == "Metres" && toUnit == "Kilometres")
-                return value / 1000;
-            else if (fromUnit == "Kilometres" && toUnit == "Metres")
-                return value * 1000;
-            else if (fromUnit == "Inches" && toUnit == "Centimetres")
-                return value * 2.54;
-            else if (fromUnit == "Centimetres" && toUnit == "Inches")
-                return value / 2.54;
-            else if (fromUnit == "Miles" && toUnit == "Kilometres")
-                return value * 1.60934;
-            else if (fromUnit == "Kilometres" && toUnit == "Miles")
-                return value / 1.60934;
+            // Conversion rates to meters for each unit
+            var conversionToMeters = new Dictionary<string, double>
+            {
+                { "Metres", 1 },
+                { "Kilometres", 1000 },
+                { "Centimetres", 0.01 },
+                { "Millimetres", 0.001 },
+                { "Inches", 0.0254 },
+                { "Feet", 0.3048 },
+                { "Yards", 0.9144 },
+                { "Miles", 1609.34 }
+            };
 
-            // Default case if no conversion is needed or if units are the same
-            return value;
+            // Validate that both units are defined
+            if (!conversionToMeters.ContainsKey(fromUnit) || !conversionToMeters.ContainsKey(toUnit))
+            {
+                throw new ArgumentException("Unsupported unit for conversion.");
+            }
+
+            // Convert from the initial unit to meters, then from meters to the target unit
+            double valueInMeters = value * conversionToMeters[fromUnit];
+            double convertedValue = valueInMeters / conversionToMeters[toUnit];
+
+            return convertedValue;
         }
+
 
 
         private void label1_Click(object sender, EventArgs e)
@@ -81,6 +90,11 @@ namespace UnitConverterApp
             {
                 e.Handled = true;
             }
+        }
+
+        private void FromUnitSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
