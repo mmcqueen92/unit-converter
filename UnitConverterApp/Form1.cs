@@ -7,6 +7,60 @@ namespace UnitConverterApp
             InitializeComponent();
         }
 
+        private static readonly Dictionary<string, double> LengthUnits = new()
+        {
+            { "Inches", 0.0254 },
+            { "Feet", 0.3048 },
+            { "Yards", 0.9144 },
+            { "Miles", 1609.34 },
+            { "Centimetres", 0.01 },
+            { "Metres", 1 },
+            { "Kilometres", 1000 }
+        };
+
+        private static readonly Dictionary<string, double> WeightUnits = new()
+        {
+            { "Grams", 1 },
+            { "Kilograms", 1000 },
+            { "Pounds", 453.592 },
+            { "Ounces", 28.3495 }
+        };
+
+        private static readonly Dictionary<string, double> VolumeUnits = new()
+        {
+            { "Millilitres", 1 },
+            { "Litres", 1000 },
+            { "Gallons", 3785.41 }
+        };
+
+                // Map all units to their categories for easy reference
+        private static readonly Dictionary<string, Dictionary<string, double>> UnitCategories = new()
+        {
+            { "Length", LengthUnits },
+            { "Weight", WeightUnits },
+            { "Volume", VolumeUnits }
+        };
+
+                // Map each unit to its category
+        private static readonly Dictionary<string, string> UnitToCategoryMap = new()
+        {
+            { "Inches", "Length" }, { "Feet", "Length" }, { "Yards", "Length" },
+            { "Miles", "Length" }, { "Centimetres", "Length" }, { "Metres", "Length" },
+            { "Kilometres", "Length" },
+
+            { "Grams", "Weight" }, { "Kilograms", "Weight" }, { "Pounds", "Weight" },
+            { "Ounces", "Weight" },
+
+            { "Millilitres", "Volume" }, { "Litres", "Volume" }, { "Gallons", "Volume" }
+        };
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Populate the first dropdown with all available units
+            FromUnitSelect.Items.AddRange(UnitToCategoryMap.Keys.ToArray());
+        }
+
+
         private void ConvertButton_Click(object sender, EventArgs e)
         {
             // Step 1: Validate the InitialValue input
@@ -42,28 +96,23 @@ namespace UnitConverterApp
 
         private static double ConvertUnits(double value, string fromUnit, string toUnit)
         {
-            // Conversion rates to meters for each unit
-            var conversionToMeters = new Dictionary<string, double>
+            if (!UnitToCategoryMap.ContainsKey(fromUnit) || !UnitToCategoryMap.ContainsKey(toUnit))
             {
-                { "Metres", 1 },
-                { "Kilometres", 1000 },
-                { "Centimetres", 0.01 },
-                { "Millimetres", 0.001 },
-                { "Inches", 0.0254 },
-                { "Feet", 0.3048 },
-                { "Yards", 0.9144 },
-                { "Miles", 1609.34 }
-            };
-
-            // Validate that both units are defined
-            if (!conversionToMeters.ContainsKey(fromUnit) || !conversionToMeters.ContainsKey(toUnit))
-            {
-                throw new ArgumentException("Unsupported unit for conversion.");
+                throw new ArgumentException("Invalid units for conversion.");
             }
 
-            // Convert from the initial unit to meters, then from meters to the target unit
-            double valueInMeters = value * conversionToMeters[fromUnit];
-            double convertedValue = valueInMeters / conversionToMeters[toUnit];
+            // Ensure units are from the same category
+            string fromCategory = UnitToCategoryMap[fromUnit];
+            string toCategory = UnitToCategoryMap[toUnit];
+
+            if (fromCategory != toCategory)
+            {
+                throw new InvalidOperationException("Cannot convert between different unit types.");
+            }
+
+            // Convert the value to the base unit within the selected category
+            double valueInBaseUnit = value * UnitCategories[fromCategory][fromUnit];
+            double convertedValue = valueInBaseUnit / UnitCategories[toCategory][toUnit];
 
             return convertedValue;
         }
@@ -94,7 +143,15 @@ namespace UnitConverterApp
 
         private void FromUnitSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Get the selected unit and its category
+            string selectedFromUnit = FromUnitSelect.SelectedItem.ToString();
 
+            if (selectedFromUnit != null && UnitToCategoryMap.TryGetValue(selectedFromUnit, out string selectedCategory))
+            {
+                // Clear and populate the second dropdown with units from the same category
+                ToUnitSelect.Items.Clear();
+                ToUnitSelect.Items.AddRange(UnitCategories[selectedCategory].Keys.ToArray());
+            }
         }
     }
 }

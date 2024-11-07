@@ -52,7 +52,6 @@
             // 
             FromUnitSelect.DisplayMember = "Miles";
             FromUnitSelect.FormattingEnabled = true;
-            FromUnitSelect.Items.AddRange(new object[] { "Miles", "Feet", "Yards", "Inches", "Kilometres", "Metres", "Centimetres", "Millimetres" });
             FromUnitSelect.Location = new Point(231, 74);
             FromUnitSelect.Name = "FromUnitSelect";
             FromUnitSelect.Size = new Size(121, 23);
@@ -90,7 +89,6 @@
             // ToUnitSelect
             // 
             ToUnitSelect.FormattingEnabled = true;
-            ToUnitSelect.Items.AddRange(new object[] { "Miles", "Feet", "Yards", "Inches", "Kilometres", "Metres", "Centimetres", "Millimetres" });
             ToUnitSelect.Location = new Point(231, 116);
             ToUnitSelect.Name = "ToUnitSelect";
             ToUnitSelect.Size = new Size(121, 23);
@@ -117,6 +115,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(398, 324);
             Controls.Add(ResultBox);
             Controls.Add(ResultLabel);
@@ -127,7 +126,8 @@
             Controls.Add(FromUnitSelect);
             Controls.Add(ConvertButton);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Unit Converter";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
