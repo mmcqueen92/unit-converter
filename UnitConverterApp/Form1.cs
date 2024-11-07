@@ -63,21 +63,18 @@ namespace UnitConverterApp
 
         private void ConvertButton_Click(object sender, EventArgs e)
         {
-            // Step 1: Validate the InitialValue input
             if (string.IsNullOrWhiteSpace(InitialValue.Text))
             {
                 MessageBox.Show("Please enter a value to convert.");
                 return;
             }
 
-            // Try to parse the InitialValue as a number
             if (!double.TryParse(InitialValue.Text, out double initialValue))
             {
                 MessageBox.Show("Please enter a valid number.");
                 return;
             }
 
-            // Step 2: Validate the dropdown selections
             if (FromUnitSelect.SelectedItem == null || ToUnitSelect.SelectedItem == null)
             {
                 MessageBox.Show("Please select both units for conversion.");
@@ -87,11 +84,9 @@ namespace UnitConverterApp
             string fromUnit = FromUnitSelect.SelectedItem?.ToString() ?? string.Empty;
             string toUnit = ToUnitSelect.SelectedItem?.ToString() ?? string.Empty;
 
-            // Step 3: Perform the conversion (example conversion logic)
             double convertedValue = ConvertUnits(initialValue, fromUnit, toUnit);
 
-            // Step 4: Display the result in the result TextBox (or Label if using that instead)
-            ResultBox.Text = convertedValue.ToString("F2");  // Display with two decimal places
+            ResultBox.Text = convertedValue.ToString("F3");
         }
 
         private static double ConvertUnits(double value, string fromUnit, string toUnit)
@@ -101,7 +96,6 @@ namespace UnitConverterApp
                 throw new ArgumentException("Invalid units for conversion.");
             }
 
-            // Ensure units are from the same category
             string fromCategory = UnitToCategoryMap[fromUnit];
             string toCategory = UnitToCategoryMap[toUnit];
 
@@ -110,7 +104,6 @@ namespace UnitConverterApp
                 throw new InvalidOperationException("Cannot convert between different unit types.");
             }
 
-            // Convert the value to the base unit within the selected category
             double valueInBaseUnit = value * UnitCategories[fromCategory][fromUnit];
             double convertedValue = valueInBaseUnit / UnitCategories[toCategory][toUnit];
 
@@ -143,12 +136,10 @@ namespace UnitConverterApp
 
         private void FromUnitSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Get the selected unit and its category
             string selectedFromUnit = FromUnitSelect.SelectedItem.ToString();
 
             if (selectedFromUnit != null && UnitToCategoryMap.TryGetValue(selectedFromUnit, out string selectedCategory))
             {
-                // Clear and populate the second dropdown with units from the same category
                 ToUnitSelect.Items.Clear();
                 ToUnitSelect.Items.AddRange(UnitCategories[selectedCategory].Keys.ToArray());
             }
